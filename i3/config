@@ -2,8 +2,22 @@
 set $super Mod4
 set $alt Mod1
 
-# set font
-font pango: Noto Sans 13 
+# Remove window borders
+for_window [class="^.*"] border pixel 0
+new_window 1pixel
+new_float 1pixel
+
+# Set thin borders
+for_window [class="^.*"] border pixel 3
+new_window 1pixel
+new_float 1pixel
+
+# Gaps
+gaps inner 18
+gaps outer -10
+
+#set font
+font pango: JetBrainsMono Nerd Font Bold 13
 
 # Use Mouse+$super to drag floating windows to their wanted position
 floating_modifier $super
@@ -14,21 +28,20 @@ exec --no-startup-id xsettingsd &
 exec --no-startup-id compton -b
 
 # start a terminal with tmux
-bindsym $super+Return exec terminator 
+bindsym $super+Return exec alacritty
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
 bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 8'
 
 # common apps keybinds
-bindsym $super+l exec i3lock -i ~/.wallpaper.png
-bindsym $super+Shift+w exec firefox-dev
+bindsym $super+Shift+w exec firefox
+bindsym $super+Shift+f exec firefox-dev
+bindsym $super+Shift+p exec pomodoneapp
 bindsym $super+Shift+h exec google-chrome
 bindsym $super+Shift+n exec obsidian
 bindsym $super+Shift+o exec discord
-bindsym $super+Shift+f exec thunar;workspace 3;focus
-bindsym $super+Shift+g exec geany
-
+bindsym $super+Shift+s exec spotify
 # Brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
@@ -113,25 +126,45 @@ mode "resize" {
 }
 bindsym $super+r mode "resize"
 
-# panel
-bar {
-        status_command i3status
-}
 
-# window rules, you can find the window class using xprop
-for_window [class=".*"] border pixel 4
-assign [class=URxvt] 1
-assign [class=Firefox|Transmission-gtk] 2
-assign [class=Thunar|File-roller] 3
-assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
-assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
-for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
-for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
 
 
 #  Screenshots in files
 bindsym Print exec --no-startup-id maim --format=png "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
-bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png" 
+
+ #Status bar configuration
+#  bar {
+#  status_command i3status
+#  workspace_min_width 22
+#  strip_workspace_numbers yes
+#  
+#  colors {
+#      background #141c21
+#      statusline #93a1a1
+#      separator #141c21
+#      # colour of border, background, and text
+#      active_workspace #141c21 #141c21 #93a1a1
+#      inactive_workspace #141c21 #141c21 #93a1a1
+#      urgent_workspace #141c21 #b08500 #93a1a1
+#  }
+#  }
+
+
+ bar {
+    font pango: JetBrainsMono Nerd Font Bold 13
+    position bottom 
+    status_command ~/.cargo/bin/i3status-rs  /home/siddarth/.config/i3/config.toml
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+}
+
+
 

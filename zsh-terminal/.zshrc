@@ -149,7 +149,7 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 alias nivm='nvim'
 alias clera='clear'
-alias fdown="sudo shutdown -h now"
+alias dead="tmux kill-server"
 
 export PATH="$PATH:$HOME/shunit2"
 
@@ -157,5 +157,9 @@ bindkey -s ^f "/home/siddarth/tmux-sessionizer\n"
 
 # fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export ALACRITTY_CONFIG_FILE=~/.config/alacritty/dracula.toml
+
+. "/home/siddarth/.wasmedge/env"
 
 
