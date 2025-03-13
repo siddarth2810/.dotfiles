@@ -1,18 +1,11 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -77,6 +70,9 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -89,49 +85,30 @@ ZSH_THEME="robbyrussell"
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-export PATH=$PATH:/usr/local/go/bin
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-# Added by GDK bootstrap
-source /home/siddarth/.asdf/asdf.sh
-
 alias nivm=nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # kw
-export fpath=(/home/siddarth/.local/lib/kw $fpath)
-autoload compinit && compinit -i
-PATH=/home/siddarth/.local/bin:$PATH # kw
-
 
 export PATH=/usr/local/node/bin:$PATH
-
-
-# kworkflow
-PS1="${PS1/\\$/}" && PS1+="\$(kw_get_current_env_name)$ "
 
 
 # Ensure PKG_CONFIG_PATH is set correctly
@@ -143,23 +120,24 @@ export PATH=/usr/local/go/bin:$PATH
 
 #  zsh auto suggestions
 plugins=(git zsh-autosuggestions)
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
 alias nivm='nvim'
+alias t='tmux'
+alias et='tmux kill-server'
 alias clera='clear'
-alias dead="tmux kill-server"
+clear() {
+  printf '\033[H\033[2J'
+}
+alias zen='sudo shutdown now'
+alias crun='./run_cpp.sh main.cpp'
 
 export PATH="$PATH:$HOME/shunit2"
 
-bindkey -s ^f "/home/siddarth/tmux-sessionizer\n"
+bindkey -s ^f "/home/sid/tmux-sessionizer\n"
 
 # fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export ALACRITTY_CONFIG_FILE=~/.config/alacritty/dracula.toml
-
-. "/home/siddarth/.wasmedge/env"
-
-
+export ALACRITTY_CONFIG_FILE=~/.config/alacritty/config.toml

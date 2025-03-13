@@ -53,7 +53,18 @@ cmp.setup({
 
 require('lspconfig').clangd.setup({
   filetypes = { "c", "cpp", "objc", "objcpp"},
-  cmd = { 'clangd', '--header-insertion=never' },
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
+    "--completion-style=detailed",
+  },
+  init_options = {
+    clangdFileStatus = true,
+    usePlaceholders = true,
+    completeUnimported = true,
+  },
   on_attach = lsp_zero.on_attach,
   capabilities = lsp_zero.capabilities,
 })

@@ -1,5 +1,7 @@
 require("sid.remap")
 require("sid.set") 
+require('sid.cscope_picker')
+
 
 -- Function to enable GitHub Copilot
 function EnableCopilot()

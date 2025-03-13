@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = "catppuccin-mocha"
+	color = "cyberdream"
 	vim.cmd.colorscheme(color)
 end
 
