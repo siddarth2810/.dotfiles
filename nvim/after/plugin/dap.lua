@@ -1,14 +1,24 @@
--- dap.lua
 local dap = require('dap')
 local dapui = require('dapui')
 
+-- Set up the C++ debugger adapter
 dap.adapters.cppdbg = {
-  id = 'cppdbg',
-  type = 'executable',
-  command = '/path/to/OpenDebugAD7',  -- Replace this with the actual path to OpenDebugAD7
-  options = {
-    detached = false
-  }
+  id = "cppdbg",
+  type = "executable",
+  command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7",
+}
+
+dap.configurations.c = {
+  {
+    name = "Launch Kernel",
+    type = "cppdbg",
+    request = "launch",
+    program = "/home/sid/work/linux_mainline/vmlinux", -- Adjust this path
+    cwd = "${workspaceFolder}",
+    stopOnEntry = true,
+    MIMode = "gdb",
+    miDebuggerPath = "/usr/bin/gdb",
+  },
 }
 
 dap.configurations.cpp = {
@@ -21,10 +31,13 @@ dap.configurations.cpp = {
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
+    externalConsole = true,
+    MIMode = 'gdb',
+    miDebuggerPath = '/usr/bin/gdb',  -- Ensure this path is correct
     setupCommands = {
       {
-        description = 'Enable pretty-printing for gdb',
         text = '-enable-pretty-printing',
+        description = 'Enable pretty-printing',
         ignoreFailures = false
       },
     },
@@ -36,21 +49,13 @@ dap.configurations.cpp = {
       end
       return variables
     end,
-    externalConsole = true,
-    MIMode = 'gdb',
-    miDebuggerPath = '/usr/bin/gdb',  -- Ensure this path is correct
-    setupCommands = {
-      {
-        text = '-enable-pretty-printing',
-        description = 'Enable pretty-printing',
-        ignoreFailures = false
-      },
-    },
   },
 }
 
 -- Optional UI for nvim-dap
 dapui.setup()
+
+-- DAP Keymaps
 vim.keymap.set('n', '<F5>', function() dap.continue() end)
 vim.keymap.set('n', '<F10>', function() dap.step_over() end)
 vim.keymap.set('n', '<F11>', function() dap.step_into() end)
