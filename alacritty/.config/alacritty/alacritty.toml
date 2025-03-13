@@ -3,7 +3,7 @@ TERM = "xterm-256color"
 
 [font]
 normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
-size = 18.0
+size = 16.0
 
 [[colors.indexed_colors]]
 color = "0xffbd5e"
@@ -34,10 +34,11 @@ white = "0xffffff"
 yellow = "0xf1ff5e"
 
 [colors.primary]
-background = "0x16181a"
+background = "#000000"
 foreground = "0xffffff"
 
 [colors.selection]
 background = "0x3c4048"
 foreground = "0xffffff"
+
 
