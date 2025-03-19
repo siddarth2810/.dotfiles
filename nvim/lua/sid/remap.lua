@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.keymap.set("n", "<leader>sh", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>ww", vim.cmd.Ex)
 
 vim.api.nvim_set_keymap(
   "n", "<leader>gw", ":Telescope git_worktree<CR>",
