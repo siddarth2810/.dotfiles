@@ -211,14 +211,14 @@ git() {
 }
 
 
-
-alias kube-tower='ln -sf ~/.kube/config-tower ~/.kube/config && echo "Switched to tower cluster"'
-alias kube-billing='ln -sf ~/.kube/config-billing ~/.kube/config && echo "Switched to billing cluster"'
-
-decode () {
-  kubectl get secret "$1" -o json \
-  | jq -r '.data | to_entries[] | "\(.key)=\(.value | @base64d)"'
-}
+#
+# alias kube-tower='ln -sf ~/.kube/config-tower ~/.kube/config && echo "Switched to tower cluster"'
+# alias kube-billing='ln -sf ~/.kube/config-billing ~/.kube/config && echo "Switched to billing cluster"'
+#
+# decode () {
+#   kubectl get secret "$1" -o json \
+#   | jq -r '.data | to_entries[] | "\(.key)=\(.value | @base64d)"'
+# }
 
 # pnpm
 export PNPM_HOME="/home/sid/.local/share/pnpm"

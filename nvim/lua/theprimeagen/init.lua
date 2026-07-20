@@ -46,14 +46,25 @@ autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
+local function apply_custom_highlights()
+  pcall(vim.api.nvim_set_hl, 0, "Search", { bg = "#FFD866", fg = "#0A0E14" })
+  pcall(vim.api.nvim_set_hl, 0, "IncSearch", { bg = "#FF8F40", fg = "#0A0E14" })
+  pcall(vim.api.nvim_set_hl, 0, "LineNr", { fg = "#8A9199" })
+  pcall(vim.api.nvim_set_hl, 0, "CursorLineNr", { fg = "#FFD866" })
+end
+
 autocmd('BufEnter', {
   group = ThePrimeagenGroup,
   callback = function()
-    if vim.bo.filetype == "zig" then
-      pcall(vim.cmd.colorscheme, "tokyonight-night")
-    else
-      pcall(vim.cmd.colorscheme, "rose-pine-moon")
-    end
+      pcall(vim.cmd.colorscheme, "ayu")
+      apply_custom_highlights()
+  end
+})
+
+autocmd('ColorScheme', {
+  group = ThePrimeagenGroup,
+  callback = function()
+      apply_custom_highlights()
   end
 })
 

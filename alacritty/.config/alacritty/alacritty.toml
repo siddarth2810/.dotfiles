@@ -40,5 +40,3 @@ foreground = "0xffffff"
 [colors.selection]
 background = "0x3c4048"
 foreground = "0xffffff"
-
-

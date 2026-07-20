@@ -68,13 +68,20 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>zx", "<cmd>!chmod +x %<CR>", { silent = true })
 
  vim.keymap.set(
      "n",
      "<leader>er",
      "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
  )
+
+vim.keymap.set(
+    "v",
+    "<leader>mc",
+    "c```<CR><C-r>\"<CR>```<Esc>",
+    { desc = "Wrap selection in markdown code block" }
+)
 
 -- vim.keymap.set(
  --   "n",
@@ -137,6 +144,23 @@ vim.keymap.set("n", "<leader>st", function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+
+local function open_hunk_diff()
+    local root = vim.fs.root(0, { ".git" }) or vim.uv.cwd()
+    local hunk = vim.fn.exepath("hunk")
+
+    if hunk == "" then
+        vim.notify("hunk not found in PATH", vim.log.levels.ERROR)
+        return
+    end
+
+    vim.cmd("tabnew")
+    vim.fn.termopen({ hunk, "diff" }, { cwd = root })
+    vim.cmd("startinsert")
+end
+
+vim.api.nvim_create_user_command("HunkDiff", open_hunk_diff, {})
+vim.keymap.set("n", "<leader>hd", open_hunk_diff, { noremap = true, silent = true, desc = "Hunk diff" })
 
 vim.keymap.set("n", "<leader>cll", function()
     vim.fn.chansend(job_id, {"clear\r\n"})
